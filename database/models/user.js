@@ -1,11 +1,21 @@
 module.exports = (sequelize, type) => {
-  return sequelize.define('user', {
+  const user = sequelize.define('user', {
       id: {
         type: type.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      name: type.STRING,
-      email: type.STRING
-  })
+      firstName: type.STRING,
+      lastName: type.STRING,
+      email: {
+        type: type.STRING,
+        unique: true
+      }
+  });
+
+  user.associate = (models) => {
+    user.hasOne(models.password);
+  }
+
+  return user;
 }

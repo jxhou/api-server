@@ -25,6 +25,7 @@ fs
     db[model.name] = model;
   });
 
+// Handle associates defined in models
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

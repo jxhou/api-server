@@ -3,11 +3,22 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors');
+
+const { signIn, signUp, refresh, tokenValidate } = require('./handlers')
 const { user } = require('../database/models');
 
 const app = express()
 app.use(bodyParser.json())
 app.use(cors());
+
+// Install middleware to validate token
+app.use(tokenValidate);
+
+app.post('/api/signup', signUp)
+
+// Authentication endpoints
+app.post('/api/signin', signIn)
+app.post('/api/refresh', refresh)
 
 // API ENDPOINTS
 // create a user
